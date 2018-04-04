@@ -105,6 +105,9 @@ public abstract class AbstractCommand<M extends HttpRequestBase, N> implements C
     public void close() throws IOException {
         if (response != null) {
             EntityUtils.consume(response.getEntity());
+            if (response instanceof Closeable) {
+                ((Closeable)response).close();
+            }
         }
     }
 
